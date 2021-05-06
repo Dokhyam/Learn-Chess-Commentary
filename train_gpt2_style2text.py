@@ -86,6 +86,7 @@ for epoch in range(epochs):
             outputs = model(inputs, labels=labels, attention_mask = attn_masks)
 
             loss = outputs['loss']
+            print('loss: ' + loss.detach())
             loss.backward()
             optimizer.step()
             scheduler.step()
