@@ -40,7 +40,7 @@ model = gpt2.model.train()
 tokenizer = gpt2.tokenizer
 max_length = 20
 eof = '<|endoftext|>'
-
+block_size = 128
 # dataloaders
 from datasets import load_dataset
 datasets = load_dataset("text", data_files={"train":sentences_data_path , "validation": val_sentences_data_path})
@@ -64,15 +64,14 @@ batch_size=64
 
 # Train/Validation loops
 for epoch in range(epochs):
-    with tqdm(total=len(dataset) / 2) as pbar:
-        for idx,entry in enumerate(train_dataloader):
+    with tqdm(total=len(lm_datasets['train']) / 2) as pbar:
+        for idx,entry in enumerate(lm_datasets['train']):
 
             if idx % 2000 == 0 and idx != 0:
               for i in range(batch_size):
                 with torch.no_grad():
                     outputs = model.generate(validation_input_encodings[i], num_beams=2, no_repeat_ngram_size=2, max_length=max_length+1, pad_token_id=pad_token_id)
                     output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-                wandb.log({f"output_text {i}": wandb.Html(f'<p>{output_text}</p>')})
             
             if idx % 50000 == 0:
               torch.save(model.state_dict(), f'{saved_models_path}{idx}_{time.time()}_{int(loss)}.bin')
