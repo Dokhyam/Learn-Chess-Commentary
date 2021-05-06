@@ -33,7 +33,7 @@ d_data_path = BASE_PATH + 'directions/'
 sentences_data_path =  BASE_PATH + 'sentences.txt'
 val_sentences_data_path = BASE_PATH + 'sentences.txt'
 
-saved_models_path = 'home/dokhyam/Models/'
+saved_models_path = '/home/dokhyam/Models/'
 if not os.path.exists(saved_models_path):
     os.mkdir(saved_models_path)
 # Training and optimization configs 
