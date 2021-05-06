@@ -80,9 +80,9 @@ for epoch in range(epochs):
 
             model.zero_grad()
 
-            inputs = entry[0].cuda()
-            attn_masks = entry[1].cuda()
-            labels = entry[2].cuda()
+            inputs = entry['input_ids'].cuda()
+            attn_masks = entry['attention_mask'].cuda()
+            labels = entry['labels'].cuda()
             outputs = model(inputs, labels=labels, attention_mask = attn_masks)
 
             loss = outputs['loss']
