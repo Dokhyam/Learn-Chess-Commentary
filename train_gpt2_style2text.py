@@ -80,9 +80,9 @@ for epoch in range(epochs):
 
             model.zero_grad()
 
-            inputs = entry['input_ids'].cuda()
-            attn_masks = entry['attention_mask'].cuda()
-            labels = entry['labels'].cuda()
+            inputs = torch.FloatTensor(entry['input_ids']).cuda()
+            attn_masks = torch.FloatTensor(entry['attention_mask']).cuda()
+            labels = torch.FloatTensor(entry['labels']).cuda()
             outputs = model(inputs, labels=labels, attention_mask = attn_masks)
 
             loss = outputs['loss']
