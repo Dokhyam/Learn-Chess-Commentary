@@ -1,4 +1,5 @@
 # pip install datasets
+import os
 import datasets
 from transformers import AdamW, get_linear_schedule_with_warmup
 from torch.utils.data import DataLoader, random_split
@@ -33,7 +34,8 @@ sentences_data_path = '/disk1/dokhyam/Style2Text/sentences.txt'
 val_sentences_data_path = '/disk1/dokhyam/Style2Text/sentences.txt'
 
 saved_models_path = BASE_PATH + 'Models/'
-
+if not os.path.exists(save_models_path):
+    os.mkdir(save_models_path)
 # Training and optimization configs 
 gpt2 = GPT2()
 model = gpt2.model.train()
