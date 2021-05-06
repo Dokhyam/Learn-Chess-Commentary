@@ -29,11 +29,11 @@ def group_texts(examples):
     return result
 
 BASE_PATH = '/disk1/dokhyam/Style2Text/'
-d_data_path = '/disk1/dokhyam/Style2Text/directions/'
-sentences_data_path = '/disk1/dokhyam/Style2Text/sentences.txt'
-val_sentences_data_path = '/disk1/dokhyam/Style2Text/sentences.txt'
+d_data_path = BASE_PATH + 'directions/'
+sentences_data_path =  BASE_PATH + 'sentences.txt'
+val_sentences_data_path = BASE_PATH + 'sentences.txt'
 
-saved_models_path = BASE_PATH + 'Models/'
+saved_models_path = 'Models/'
 if not os.path.exists(saved_models_path):
     os.mkdir(saved_models_path)
 # Training and optimization configs 
