@@ -34,7 +34,7 @@ sentences_data_path = '/disk1/dokhyam/Style2Text/sentences.txt'
 val_sentences_data_path = '/disk1/dokhyam/Style2Text/sentences.txt'
 
 saved_models_path = BASE_PATH + 'Models/'
-if not os.path.exists(save_models_path):
+if not os.path.exists(saved_models_path):
     os.mkdir(saved_models_path)
 # Training and optimization configs 
 gpt2 = GPT2()
