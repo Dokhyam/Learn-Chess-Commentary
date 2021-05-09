@@ -74,8 +74,8 @@ for epoch in range(epochs):
 						outputs = model.generate(validation_input_encodings[i], num_beams=2, no_repeat_ngram_size=2, max_length=max_length+1, pad_token_id=pad_token_id)
 						output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 			
-			if idx % 50000 == 0:
-				torch.save(model.state_dict(), f'{saved_models_path}{idx}_{time.time()}_{int(loss)}.bin')
+			if idx % 500 == 0:
+				torch.save(model.state_dict(), f'Epoch: {epoch}, iteration: {idx}}.pt')
 
 			model.zero_grad()
 
