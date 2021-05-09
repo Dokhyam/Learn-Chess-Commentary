@@ -7,8 +7,8 @@ from Models.GPT2 import GPT2
 from Configs.train_config import config
 
 BASE_PATH = '/disk1/dokhyam/Style2Text/'
-path_model = '/Refined_gpt_models/Epoch_19_iteration_50.pt'
-gpt2 = GPT()
+path_model = BASE_PATH +  '/Refined_gpt_models/Epoch_19_iteration_50.pt'
+gpt2 = GPT2()
 gpt2.load_model(path_model)
 gpt2.model = gpt2.model.eval().cuda()
 tested_model = gpt2
