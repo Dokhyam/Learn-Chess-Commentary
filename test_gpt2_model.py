@@ -35,7 +35,8 @@ gpt2.model = gpt2.model.eval().cuda()
 tested_model = gpt2
 max = 20
 eof = '<|endoftext|>'
-pad_token_id = tested_model.tokenizer('[PAD]')['input_ids'][0]
+tokenizer = tested_model.tokenizer
+pad_token_id = tokenizer('[PAD]')['input_ids'][0]
 
 from datasets import load_dataset
 datasets = load_dataset("text", data_files={"train":sentences_data_path , "test": path_prefixes})
@@ -52,6 +53,8 @@ for idx,entry in enumerate(lm_datasets['test']):
 	outputs = tested_model.generate(inputs[0], num_beams=2, no_repeat_ngram_size=2, max_length=max+1, pad_token_id=pad_token_id)
 	textual_data = tested_model.tokenizer.decode(outputs[0], skip_special_tokens=True)
 	print(textual_data)
+
+
 
 
 
