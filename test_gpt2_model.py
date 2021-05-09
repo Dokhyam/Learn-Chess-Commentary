@@ -28,6 +28,7 @@ def group_texts(examples):
 BASE_PATH = '/disk1/dokhyam/Style2Text/'
 path_model = BASE_PATH +  '/Refined_gpt_models/Epoch_19_iteration_50.pt'
 path_prefixes = BASE_PATH + 'prefix_examples.txt'
+sentences_data_path =  BASE_PATH + 'sentences.txt'
 gpt2 = GPT2()
 gpt2.load_model(path_model)
 gpt2.model = gpt2.model.eval().cuda()
@@ -51,5 +52,6 @@ for idx,entry in enumerate(lm_datasets['test']):
 	outputs = tested_model.generate(inputs[0], num_beams=2, no_repeat_ngram_size=2, max_length=max+1, pad_token_id=pad_token_id)
 	textual_data = tested_model.tokenizer.decode(outputs[0], skip_special_tokens=True)
 	print(textual_data)
+
 
 
