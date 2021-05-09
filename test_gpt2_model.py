@@ -41,14 +41,18 @@ block_size = 128
 
 from datasets import load_dataset
 datasets = load_dataset("text", data_files={"train":sentences_data_path , "test": path_prefixes})
-tokenized_datasets = datasets.map(tokenize_function, batched=True, num_proc=4, remove_columns=["text"])
-lm_datasets = tokenized_datasets.map(group_texts,batched=True,batch_size=2,num_proc=1)
+tokenized_datasets = datasets.map(tokenize_function, batched=True, num_proc=1, remove_columns=["text"])
+lm_datasets = tokenized_datasets
+# lm_datasets = tokenized_datasets.map(group_texts,batched=True,batch_size=2,num_proc=1)
 # Test
 for idx,entry in enumerate(lm_datasets['test']):
 	inputs = torch.LongTensor(entry['input_ids']).cuda()
 	outputs = tested_model.generate(inputs[0], num_beams=2, no_repeat_ngram_size=2, max_length=max+1, pad_token_id=pad_token_id)
 	textual_data = tested_model.tokenizer.decode(outputs[0], skip_special_tokens=True)
 	print(textual_data)
+
+
+
 
 
 
