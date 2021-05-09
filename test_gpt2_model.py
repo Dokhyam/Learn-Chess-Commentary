@@ -46,7 +46,7 @@ lm_datasets = tokenized_datasets.map(
 	group_texts,
 	batched=True,
 	batch_size=2,
-	num_proc=4,
+	num_proc=1,
 )
 # Test
 for idx,entry in enumerate(lm_datasets['test']):
