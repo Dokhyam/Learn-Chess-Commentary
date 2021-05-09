@@ -46,10 +46,15 @@ lm_datasets = tokenized_datasets
 # lm_datasets = tokenized_datasets.map(group_texts,batched=True,batch_size=2,num_proc=1)
 # Test
 for idx,entry in enumerate(lm_datasets['test']):
-	inputs = torch.LongTensor(entry['input_ids']).cuda()
-	outputs = tested_model.model.generate(inputs[0], num_beams=2, no_repeat_ngram_size=2, max_length=max+1, pad_token_id=pad_token_id)
-	textual_data = tested_model.tokenizer.decode(outputs[0], skip_special_tokens=True)
-	print(textual_data)
+	try:
+		inputs = torch.LongTensor(entry['input_ids']).cuda()
+		outputs = tested_model.model.generate(inputs[0], num_beams=2, no_repeat_ngram_size=2, max_length=max+1, pad_token_id=pad_token_id)
+		textual_data = tested_model.tokenizer.decode(outputs[0], skip_special_tokens=True)
+		print(textual_data)
+	except:
+		continue
+
+
 
 
 
