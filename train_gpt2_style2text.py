@@ -75,7 +75,7 @@ for epoch in range(epochs):
 						output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 			
 			if idx % 500 == 0:
-				torch.save(model.state_dict(), f'Epoch_{epoch}_iteration_{idx}.pt')
+				torch.save(model.state_dict(), os.path.join(saved_models_path,f'Epoch_{epoch}_iteration_{idx}.pt'))
 
 			model.zero_grad()
 
