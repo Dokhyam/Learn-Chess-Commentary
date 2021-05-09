@@ -74,7 +74,7 @@ for epoch in range(epochs):
 						outputs = model.generate(validation_input_encodings[i], num_beams=2, no_repeat_ngram_size=2, max_length=max_length+1, pad_token_id=pad_token_id)
 						output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 			
-			if idx % 500 == 0:
+			if idx % 50 == 0:
 				torch.save(model.state_dict(), os.path.join(saved_models_path,f'Epoch_{epoch}_iteration_{idx}.pt'))
 
 			model.zero_grad()
