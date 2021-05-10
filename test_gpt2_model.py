@@ -26,10 +26,15 @@ def group_texts(examples):
 	return result
 
 BASE_PATH = '/disk1/dokhyam/Style2Text/'
-path_model = BASE_PATH +  '/Refined_gpt_models/Epoch_19_iteration_50.pt'
+path_model = BASE_PATH +  '/Refined_gpt_models/Epoch_19_iteration_1.pt'
 path_prefixes = BASE_PATH + 'prefix_examples.txt'
 sentences_data_path =  BASE_PATH + 'sentences.txt'
 gpt2 = GPT2()
+tokenizer = gpt2.tokenizer
+from transformers import pipeline
+ref_model = pipeline('text-generation',model='/disk1/dokhyam/Style2Text/ref_model', tokenizer=tokenizer,config={'max_length':10})
+ref_model('How does she look?',max_length=30)
+exit()
 gpt2.load_model(path_model)
 gpt2.model = gpt2.model.eval().cuda()
 tested_model = gpt2
