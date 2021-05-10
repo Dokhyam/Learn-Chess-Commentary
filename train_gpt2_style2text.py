@@ -38,7 +38,8 @@ if not os.path.exists(saved_models_path):
 # Training and optimization configs 
 gpt2 = GPT2()
 gpt2_model = gpt2.model.train()
-tokenizer = gpt2.tokenizer
+# tokenizer = gpt2.tokenizer
+tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
 max_length = 20
 eof = '<|endoftext|>'
 block_size = 128
