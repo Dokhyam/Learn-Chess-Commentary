@@ -64,30 +64,52 @@ epochs = 20
 batch_size=64
 
 # Train/Validation loops
-for epoch in range(epochs):
-	with tqdm(total=len(lm_datasets['train']) / 2) as pbar:
-		for idx,entry in enumerate(lm_datasets['train']):
+# for epoch in range(epochs):
+# 	with tqdm(total=len(lm_datasets['train']) / 2) as pbar:
+# 		for idx,entry in enumerate(lm_datasets['train']):
 
-			if idx % 2000 == 0 and idx != 0:
-				for i in range(batch_size):
-					with torch.no_grad():
-						outputs = model.generate(validation_input_encodings[i], num_beams=2, no_repeat_ngram_size=2, max_length=max_length+1, pad_token_id=pad_token_id)
-						output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+# 			if idx % 2000 == 0 and idx != 0:
+# 				for i in range(batch_size):
+# 					with torch.no_grad():
+# 						outputs = model.generate(validation_input_encodings[i], num_beams=2, no_repeat_ngram_size=2, max_length=max_length+1, pad_token_id=pad_token_id)
+# 						output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 			
-			if idx % 50 == 0:
-				torch.save(model.state_dict(), os.path.join(saved_models_path,f'Epoch_{epoch}_iteration_{idx}.pt'))
+# 			if idx % 50000 == 0:
+# 				torch.save(model.state_dict(), f'{saved_models_path}{idx}_{time.time()}_{int(loss)}.bin')
 
-			model.zero_grad()
+# 			model.zero_grad()
 
-			inputs = torch.LongTensor(entry['input_ids']).cuda()
-			attn_masks = torch.FloatTensor(entry['attention_mask']).cuda()
-			labels = torch.LongTensor(entry['labels']).cuda()
-			outputs = model(inputs, labels=labels, attention_mask = attn_masks)
+# 			inputs = torch.LongTensor(entry['input_ids']).cuda()
+# 			attn_masks = torch.FloatTensor(entry['attention_mask']).cuda()
+# 			labels = torch.LongTensor(entry['labels']).cuda()
+# 			outputs = model(inputs, labels=labels, attention_mask = attn_masks)
 
-			loss = outputs['loss']
-			loss.backward()
-			optimizer.step()
-			scheduler.step()
+# 			loss = outputs['loss']
+# 			loss.backward()
+# 			optimizer.step()
+# 			scheduler.step()
 
-			pbar.update(2)
-	print('loss: ' + str(loss.detach()))
+# 			pbar.update(2)
+# 	print('loss: ' + str(loss.detach()))
+
+from transformers import DataCollatorForLanguageModeling,LineByLineTextDataset,TextDataset, Trainer, TrainingArguments
+training_args = TrainingArguments(
+    output_dir="/home/dokhyam/trainer_out/", #The output directory
+    overwrite_output_dir=True, #overwrite the content of the output directory
+    num_train_epochs=20, # number of training epochs
+    per_device_train_batch_size=4, # batch size for training
+    per_device_eval_batch_size=4,  # batch size for evaluation
+    evaluation_strategy = "epoch",
+    save_steps=100, # after # steps model is saved
+    warmup_steps=10,# number of warmup steps for learning rate scheduler
+    prediction_loss_only=True,
+    )
+
+trainer = Trainer(
+    model=gpt2_model,
+    args=training_args,
+    train_dataset=lm_datasets["train"],
+    eval_dataset=lm_datasets["validation"],
+)
+trainer.train()
+trainer.save_model('/home/dokhyam/ref_model_trainer')
