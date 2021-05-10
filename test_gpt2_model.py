@@ -32,7 +32,7 @@ sentences_data_path =  BASE_PATH + 'sentences.txt'
 gpt2 = GPT2()
 tokenizer = gpt2.tokenizer
 from transformers import pipeline
-ref_model = pipeline('text-generation',model='/disk1/dokhyam/Style2Text/ref_model', tokenizer=tokenizer,config={'max_length':10})
+ref_model = pipeline('text-generation',model='/home/dokhyam/ref_model_trainer', tokenizer=tokenizer,config={'max_length':10})
 ref_model('How does she look?',max_length=30)
 exit()
 gpt2.load_model(path_model)
