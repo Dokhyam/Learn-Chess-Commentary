@@ -30,7 +30,7 @@ path_model = BASE_PATH +  '/Refined_gpt_models/Epoch_19_iteration_1.pt'
 path_prefixes = BASE_PATH + 'prefix_examples.txt'
 sentences_data_path =  BASE_PATH + 'sentences.txt'
 gpt2 = GPT2()
-tokenizer = gpt2.tokenizer
+tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
 from transformers import pipeline
 ref_model = pipeline('text-generation',model='/home/dokhyam/ref_model_trainer', tokenizer=tokenizer,config={'max_length':10})
 ref_model('How does she look?',max_length=30)
