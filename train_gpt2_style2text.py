@@ -37,7 +37,7 @@ if not os.path.exists(saved_models_path):
 	os.mkdir(saved_models_path)
 # Training and optimization configs 
 gpt2 = GPT2()
-model = gpt2.model.train()
+gpt2_model = gpt2.model.train()
 tokenizer = gpt2.tokenizer
 max_length = 20
 eof = '<|endoftext|>'
@@ -106,7 +106,7 @@ training_args = TrainingArguments(
     )
 
 trainer = Trainer(
-    model=gpt2,
+    model=gpt2_model,
     args=training_args,
     train_dataset=lm_datasets["train"],
     eval_dataset=lm_datasets["validation"],
