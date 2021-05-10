@@ -1,4 +1,5 @@
 from transformers import AdamW, get_linear_schedule_with_warmup
+import transformers
 from torch.utils.data import DataLoader, random_split
 from tqdm import tqdm
 import torch
