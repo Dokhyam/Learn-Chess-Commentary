@@ -53,15 +53,15 @@ lm_datasets = tokenized_datasets.map(
 	num_proc=4,
 )
 
-optimizer = AdamW(model.parameters(), lr= config['lr'])
-scheduler = get_linear_schedule_with_warmup(
-	optimizer, num_warmup_steps=5000, num_training_steps=-1
-)
+# optimizer = AdamW(model.parameters(), lr= config['lr'])
+# scheduler = get_linear_schedule_with_warmup(
+# 	optimizer, num_warmup_steps=5000, num_training_steps=-1
+# )
 
-loss = 0
-pad_token_id = tokenizer('[PAD]')['input_ids'][0]
-epochs = 20
-batch_size=64
+# loss = 0
+# pad_token_id = tokenizer('[PAD]')['input_ids'][0]
+# epochs = 20
+# batch_size=64
 
 # Train/Validation loops
 # for epoch in range(epochs):
