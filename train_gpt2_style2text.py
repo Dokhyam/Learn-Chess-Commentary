@@ -96,7 +96,7 @@ from transformers import DataCollatorForLanguageModeling,LineByLineTextDataset,T
 training_args = TrainingArguments(
     output_dir="/home/dokhyam/trainer_out/", #The output directory
     overwrite_output_dir=True, #overwrite the content of the output directory
-    num_train_epochs=20, # number of training epochs
+    num_train_epochs=30, # number of training epochs
     per_device_train_batch_size=4, # batch size for training
     per_device_eval_batch_size=4,  # batch size for evaluation
     evaluation_strategy = "epoch",
