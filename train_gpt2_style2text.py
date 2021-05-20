@@ -30,6 +30,7 @@ def group_texts(examples, block_size=128):
 	return result
 
 def train_iteration(
+	results_path,
 	d_data_path,
 	sentences_data_path,
 	val_sentences_data_path, 
@@ -45,7 +46,7 @@ def train_iteration(
 	if previous_model_path is None:
 		gpt2_model = transformers.GPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id,output_hidden_states=True)
 	else:
-		gpt2_model = transformers.GPT2LMHeadModel.from_pretrained(os.path.join(saved_models_path,previous_model_path), pad_token_id=tokenizer.eos_token_id,output_hidden_states=True)
+		gpt2_model = transformers.GPT2LMHeadModel.from_pretrained(previous_model_path, pad_token_id=tokenizer.eos_token_id,output_hidden_states=True)
 # 	gpt2_model = gpt2.model.train()
 	max_length = 20
 	eof = '<|endoftext|>'
@@ -61,7 +62,7 @@ def train_iteration(
 	)
 
 	training_args = TrainingArguments(
-	    output_dir="/home/dokhyam/trainer_out/", #The output directory
+	    output_dir=results_path, #The output directory
 	    overwrite_output_dir=True, #overwrite the content of the output directory
 	    num_train_epochs=30, # number of training epochs
 	    per_device_train_batch_size=4, # batch size for training
@@ -79,7 +80,6 @@ def train_iteration(
 	    eval_dataset=lm_datasets["validation"],
 	)
 	trainer.train()
-	trainer.save_model('/home/dokhyam/ref_model_trainer')
 
 
 if __name__ == "__main__":
@@ -87,6 +87,21 @@ if __name__ == "__main__":
 	d_data_path = BASE_PATH + 'directions/'
 	sentences_data_path =  BASE_PATH + 'sentences.txt'
 	val_sentences_data_path = BASE_PATH + 'sentences.txt'
-
+	results_path1 = "/home/dokhyam/trainer_out"
 	saved_models_path = '/home/dokhyam/Models/'
-	train_iteration(d_data_path,sentences_data_path,val_sentences_data_path, saved_models_path)
+	train_iteration(
+		results_path,
+		d_data_path,
+		sentences_data_path,
+		val_sentences_data_path,
+		saved_models_path
+		)
+	results_path2 = "/home/dokhyam/trainer_out2"
+	train_iteration(
+		results_path2,
+		d_data_path,
+		sentences_data_path,
+		val_sentences_data_path,
+		saved_models_path,
+		previous_model_path=os.path.join(results_path1, 'checkpoints-500')
+		)
