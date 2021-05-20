@@ -103,5 +103,5 @@ if __name__ == "__main__":
 		sentences_data_path,
 		val_sentences_data_path,
 		saved_models_path,
-		previous_model_path=os.path.join(results_path1, 'checkpoints-500')
+		previous_model_path=os.path.join(results_path1, 'checkpoint-500')
 		)
