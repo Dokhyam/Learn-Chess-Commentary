@@ -90,7 +90,7 @@ if __name__ == "__main__":
 	results_path1 = "/home/dokhyam/trainer_out"
 	saved_models_path = '/home/dokhyam/Models/'
 	train_iteration(
-		results_path,
+		results_path1,
 		d_data_path,
 		sentences_data_path,
 		val_sentences_data_path,
