@@ -40,12 +40,13 @@ def train_iteration(
 	if not os.path.exists(saved_models_path):
 		os.mkdir(saved_models_path)
 	# Training and optimization configs 
+	tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
+
 	if previous_model_path is None:
 		gpt2 = transformers.GPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id,output_hidden_states=True)
 	else:
 		gpt2 = transformers.GPT2LMHeadModel.from_pretrained(os.path.join(saved_models_path,previous_model_path), pad_token_id=tokenizer.eos_token_id,output_hidden_states=True)
 	gpt2_model = gpt2.model.train()
-	tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
 	max_length = 20
 	eof = '<|endoftext|>'
 	block_size = 128
