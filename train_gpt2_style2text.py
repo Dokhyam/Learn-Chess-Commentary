@@ -29,7 +29,7 @@ def group_texts(examples):
 	result["labels"] = result["input_ids"].copy()
 	return result
 
-def train_iteraion(
+def train_iteration(
 	d_data_path,
 	sentences_data_path,
 	val_sentences_data_path, 
