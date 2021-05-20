@@ -9,7 +9,7 @@ from datasets import load_dataset
 import transformers
 from transformers import DataCollatorForLanguageModeling,LineByLineTextDataset,TextDataset, Trainer, TrainingArguments
 
-
+tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
 
 def tokenize_function(examples):
 	return tokenizer(examples["text"])
@@ -40,7 +40,7 @@ def train_iteration(
 	if not os.path.exists(saved_models_path):
 		os.mkdir(saved_models_path)
 	# Training and optimization configs 
-	tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
+	
 
 	if previous_model_path is None:
 		gpt2_model = transformers.GPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id,output_hidden_states=True)
